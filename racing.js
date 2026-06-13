@@ -1,72 +1,49 @@
 (function () {
-  // Config
-  const RACERS = [
-    { id: 'car1',  speed: 5.8,  startDelay: 0,    lane: 0 },
-    { id: 'bike1', speed: 6.5,  startDelay: 0.6,  lane: 1 },
-    { id: 'car2',  speed: 5.2,  startDelay: 1.4,  lane: 2 },
-    { id: 'bike2', speed: 7.1,  startDelay: 2.2,  lane: 3 },
+
+  // Each racer: id, speed (px/s), startDelay (s), lane (top-lane or bottom-lane)
+  const TOP_RACERS = [
+    { id: 'f1-red',      speed: 320, startDelay: 0.0  },
+    { id: 'moto-yellow', speed: 370, startDelay: 1.4  },
+    { id: 'f1-silver',   speed: 290, startDelay: 2.8  },
+    { id: 'moto-black',  speed: 410, startDelay: 4.2  },
   ];
 
-  const LANE_OFFSETS = [2, 14, 26, 38]; // px from top of track
-  const TRACK_HEIGHT = 52;
+  const BOT_RACERS = [
+    { id: 'f1-blue',    speed: 350, startDelay: 0.7  },
+    { id: 'moto-red',   speed: 390, startDelay: 2.1  },
+    { id: 'f1-orange',  speed: 310, startDelay: 3.5  },
+    { id: 'moto-blue',  speed: 430, startDelay: 5.0  },
+  ];
 
-  const track = document.getElementById('raceTrack');
-  const trackRect = () => track.getBoundingClientRect();
-
-  // Set lane positions
-  RACERS.forEach((r, i) => {
-    const el = document.getElementById(r.id);
-    if (!el) return;
-    el.style.top = LANE_OFFSETS[r.lane] + 'px';
-  });
-
-  // Animation state
   const state = {};
-  RACERS.forEach(r => {
-    state[r.id] = {
-      x: -120,
-      running: false,
-      startTime: null,
-    };
-  });
-
-  function getViewportWidth() {
-    return window.innerWidth;
-  }
-
-  function resetRacer(id) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    state[id].x = -120;
-    el.style.transform = `translateX(-120px)`;
-    el.style.opacity = '0';
-  }
 
   function launchRacer(racer) {
     const { id, speed, startDelay } = racer;
     const el = document.getElementById(id);
     if (!el) return;
 
+    const w = el.offsetWidth || 80;
+    state[id] = { x: -(w + 10), startTime: null, running: false };
+    el.style.transform = `translateX(${state[id].x}px)`;
+    el.style.opacity = '0';
+
     setTimeout(() => {
       el.style.opacity = '1';
-      state[id].running = true;
+      state[id].running  = true;
       state[id].startTime = performance.now();
 
       function tick(now) {
         if (!state[id].running) return;
-        const elapsed = (now - state[id].startTime) / 1000;
-        state[id].x = -120 + elapsed * speed * 100; // px/s = speed * 100
+        const dt = (now - state[id].startTime) / 1000;
+        state[id].x = -(w + 10) + dt * speed;
         el.style.transform = `translateX(${state[id].x}px)`;
 
-        const vw = getViewportWidth();
-        if (state[id].x > vw + 120) {
-          // Reset and loop
+        if (state[id].x > window.innerWidth + 10) {
           state[id].running = false;
           el.style.opacity = '0';
-          setTimeout(() => {
-            resetRacer(id);
-            launchRacer(racer);
-          }, Math.random() * 1200 + 400);
+          // random gap 0.5–2.5s before next lap
+          const gap = 500 + Math.random() * 2000;
+          setTimeout(() => launchRacer(racer), gap);
           return;
         }
         requestAnimationFrame(tick);
@@ -75,22 +52,8 @@
     }, startDelay * 1000);
   }
 
-  // Start race after page loads
   window.addEventListener('load', () => {
-    RACERS.forEach(r => {
-      resetRacer(r.id);
-      launchRacer(r);
-    });
+    [...TOP_RACERS, ...BOT_RACERS].forEach(r => launchRacer(r));
   });
 
-  // Wheel spin animation via CSS custom property
-  let wheelAngle = 0;
-  function spinWheels() {
-    wheelAngle += 8;
-    document.querySelectorAll('.racer svg circle').forEach(c => {
-      // Only rotate the inner wheel circles (r ~2-3)
-    });
-    requestAnimationFrame(spinWheels);
-  }
-  spinWheels();
 })();

@@ -249,51 +249,61 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 14px;
+    gap: 18px;
     flex-wrap: wrap;
     width: 100%;
 }
 
-.wrapper .container .text article .button-link {
-    min-width: 124px;
-    height: 40px;
-    padding: 0 24px;
-    border-radius: 50px;
+.wrapper .container .text article .bubble-link {
+    min-width: 132px;
+    min-height: 46px;
+    padding: 0 28px;
+    border-radius: 999px;
     cursor: pointer;
-    box-shadow: 0px 15px 20px rgba(54, 24, 79, 0.5);
+    box-shadow: 0px 16px 24px rgba(38, 18, 56, 0.42), inset 0px 2px 0px rgba(255, 255, 255, 0.45);
     z-index: 3;
-    color: #6716ca;
-    background-color: white;
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 12px;
-    line-height: 40px;
+    line-height: 46px;
     text-align: center;
     white-space: nowrap;
-    transition: all 0.3s ease;
+    letter-spacing: 0;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
 }
 
-.wrapper .container .text article .button-link--primary {
-    color: white;
-    background-color: #0f6f8f;
+.wrapper .container .text article .bubble-link--github {
+    color: #6716ca;
+    background: linear-gradient(180deg, #ffffff 0%, #f5edff 100%);
 }
 
-.wrapper .container .text article .button-link:hover {
-    box-shadow: 0px 10px 10px -10px rgba(54, 24, 79, 0.5);
-    transform: translateY(5px);
+.wrapper .container .text article .bubble-link--retailai {
     color: white;
-    background-color: #ff00ff;
+    background: linear-gradient(135deg, #159c9a 0%, #1f6fb8 100%);
+    box-shadow: 0px 18px 28px rgba(12, 91, 119, 0.45), inset 0px 2px 0px rgba(255, 255, 255, 0.32);
+}
+
+.wrapper .container .text article .bubble-link:hover {
+    box-shadow: 0px 22px 34px rgba(54, 24, 79, 0.5), inset 0px 2px 0px rgba(255, 255, 255, 0.5);
+    transform: translateY(-6px) scale(1.04);
+    color: white;
+    background: #ff00ff;
     animation: sdb 3s infinite;
     -webkit-animation: sdb 3s infinite;
 }
 
+.wrapper .container .text article .bubble-link:active {
+    transform: translateY(-2px) scale(1.01);
+}
+
 @media screen and (max-width: 420px) {
     .wrapper .container .text article .actions {
-        gap: 10px;
+        gap: 12px;
+        flex-direction: column;
     }
 
-    .wrapper .container .text article .button-link {
-        width: min(260px, 80vw);
+    .wrapper .container .text article .bubble-link {
+        width: min(270px, 80vw);
         padding: 0 18px;
     }
 }

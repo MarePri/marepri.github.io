@@ -468,3 +468,117 @@ body {
 body.hovered {
     background: #003766;
 }
+/* ============================================
+   RACING ANIMATION — feature/racing-animation
+   ============================================ */
+
+.race-track {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 54px;
+  overflow: hidden;
+  z-index: 100;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    rgba(0,0,0,0) 0%,
+    rgba(20,10,30,0.55) 20%,
+    rgba(20,10,30,0.7) 80%,
+    rgba(10,5,20,0.85) 100%
+  );
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Subtle dashed center line */
+.track-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255,255,255,0.15) 0px,
+    rgba(255,255,255,0.15) 16px,
+    transparent 16px,
+    transparent 32px
+  );
+}
+.track-line.top    { top: 13px; }
+.track-line.bottom { top: 39px; }
+
+/* Racers */
+.racer {
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  will-change: transform;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
+}
+
+.f1-car {
+  width: 80px;
+  height: 28px;
+}
+
+.motogp-bike {
+  width: 60px;
+  height: 36px;
+  top: -4px;
+}
+
+/* Exhaust particles */
+.exhaust {
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 4px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255,200,80,0.9) 0%, rgba(255,100,20,0.5) 50%, transparent 100%);
+  animation: exhaustPuff 0.12s linear infinite;
+}
+
+.bike-exhaust {
+  left: -8px;
+  width: 7px;
+  height: 3px;
+}
+
+@keyframes exhaustPuff {
+  0%   { opacity: 1;   transform: translateY(-50%) scaleX(1);   }
+  50%  { opacity: 0.6; transform: translateY(-50%) scaleX(1.8); }
+  100% { opacity: 0;   transform: translateY(-50%) scaleX(2.4); }
+}
+
+/* Speed lines behind fast movers */
+.racer::before {
+  content: '';
+  position: absolute;
+  right: 100%;
+  top: 30%;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18));
+  pointer-events: none;
+}
+
+/* Wheel spin — CSS animation on the SVG circles */
+.racer svg {
+  animation: wheelSpin 0.3s linear infinite;
+  transform-origin: center;
+  overflow: visible;
+}
+
+/* Individual wheel groups spin */
+@keyframes wheelSpin {
+  /* SVG wheels are circles — we rotate the whole SVG slightly for a rolling effect */
+}
+
+/* F1 car specific glow */
+.car-1 { filter: drop-shadow(0 0 6px rgba(232,0,45,0.6)); }
+.car-2 { filter: drop-shadow(0 0 6px rgba(0,210,255,0.6)); }
+.bike-1 { filter: drop-shadow(0 0 5px rgba(255,107,0,0.5)); }
+.bike-2 { filter: drop-shadow(0 0 5px rgba(199,0,0,0.5)); }
+

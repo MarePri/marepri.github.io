@@ -249,9 +249,31 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 18px;
-    flex-wrap: wrap;
+    gap: 16px;
+    flex-direction: column;
+    flex-wrap: nowrap;
     width: 100%;
+}
+
+.wrapper .container .text article .link-bubble {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.09);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0px 20px 38px rgba(27, 12, 43, 0.46), inset 0px 1px 0px rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.wrapper .container .text article .link-bubble--github {
+    align-self: center;
+}
+
+.wrapper .container .text article .link-bubble--retailai {
+    align-self: center;
 }
 
 .wrapper .container .text article .bubble-link {
@@ -259,17 +281,17 @@ body {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    min-width: 132px;
-    min-height: 46px;
-    padding: 0 28px;
+    min-width: 176px;
+    min-height: 50px;
+    padding: 0 30px;
     border-radius: 999px;
     cursor: pointer;
-    box-shadow: 0px 18px 28px rgba(38, 18, 56, 0.48), inset 0px 2px 0px rgba(255, 255, 255, 0.55);
+    box-shadow: 0px 14px 22px rgba(38, 18, 56, 0.28), inset 0px 2px 0px rgba(255, 255, 255, 0.55);
     z-index: 3;
     text-transform: uppercase;
     font-weight: 700;
     font-size: 13px;
-    line-height: 46px;
+    line-height: 50px;
     text-align: center;
     white-space: nowrap;
     letter-spacing: 0;
@@ -291,13 +313,13 @@ body {
 .wrapper .container .text article .bubble-link--github {
     color: #6716ca;
     background: linear-gradient(180deg, #ffffff 0%, #efe0ff 100%);
-    box-shadow: 0px 18px 28px rgba(87, 33, 127, 0.45), inset 0px 2px 0px rgba(255, 255, 255, 0.7);
+    box-shadow: 0px 14px 22px rgba(87, 33, 127, 0.3), inset 0px 2px 0px rgba(255, 255, 255, 0.7);
 }
 
 .wrapper .container .text article .bubble-link--retailai {
     color: white;
     background: linear-gradient(135deg, #159c9a 0%, #1f6fb8 100%);
-    box-shadow: 0px 18px 28px rgba(12, 91, 119, 0.45), inset 0px 2px 0px rgba(255, 255, 255, 0.32);
+    box-shadow: 0px 14px 22px rgba(12, 91, 119, 0.3), inset 0px 2px 0px rgba(255, 255, 255, 0.32);
 }
 
 .wrapper .container .text article .bubble-link:hover {
@@ -317,11 +339,14 @@ body {
 @media screen and (max-width: 420px) {
     .wrapper .container .text article .actions {
         gap: 12px;
-        flex-direction: column;
+    }
+
+    .wrapper .container .text article .link-bubble {
+        width: min(300px, 82vw);
     }
 
     .wrapper .container .text article .bubble-link {
-        width: min(270px, 80vw);
+        width: 100%;
         padding: 0 18px;
     }
 }

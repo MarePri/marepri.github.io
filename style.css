@@ -33,19 +33,6 @@ body {
     -webkit-tap-highlight-color: transparent;
     text-decoration: none;
     color: inherit;
-    animation: color-change 1s infinite;
-}
-
-@keyframes color-change {
-    0% {
-        color: azure;
-    }
-    50% {
-        color: #92D9CB;
-    }
-    100% {
-        color: #F6D9B2;
-    }
 }
 
 h1:focus,
@@ -245,28 +232,110 @@ body {
     text-shadow: 6px 6px 10px #32243E;
 }
 
-.wrapper .container .text article button {
-    height: 40px;
-    padding: 0 30px;
-    border-radius: 50px;
-    cursor: pointer;
-    box-shadow: 0px 15px 20px rgba(54, 24, 79, 0.5);
-    z-index: 3;
-    color: #6716ca;
-    background-color: white;
-    text-transform: uppercase;
-    font-weight: 600;
-    font-size: 12px;
-    transition: all 0.3s ease;
+.wrapper .container .text article .actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width: 100%;
 }
 
-.wrapper .container .text article button:hover {
-    box-shadow: 0px 10px 10px -10px rgba(54, 24, 79, 0.5);
-    transform: translateY(5px);
+.wrapper .container .text article .link-bubble {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.09);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0px 20px 38px rgba(27, 12, 43, 0.46), inset 0px 1px 0px rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.wrapper .container .text article .link-bubble--github {
+    align-self: center;
+}
+
+.wrapper .container .text article .link-bubble--retailai {
+    align-self: center;
+}
+
+.wrapper .container .text article .bubble-link {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 176px;
+    min-height: 50px;
+    padding: 0 30px;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0px 14px 22px rgba(38, 18, 56, 0.28), inset 0px 2px 0px rgba(255, 255, 255, 0.55);
+    z-index: 3;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 50px;
+    text-align: center;
+    white-space: nowrap;
+    letter-spacing: 0;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.wrapper .container .text article .bubble-link::before {
+    content: "";
+    position: absolute;
+    inset: 2px 2px auto 2px;
+    height: 46%;
+    border-radius: 999px 999px 50% 50%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0));
+    pointer-events: none;
+}
+
+.wrapper .container .text article .bubble-link--github {
+    color: #6716ca;
+    background: linear-gradient(180deg, #ffffff 0%, #efe0ff 100%);
+    box-shadow: 0px 14px 22px rgba(87, 33, 127, 0.3), inset 0px 2px 0px rgba(255, 255, 255, 0.7);
+}
+
+.wrapper .container .text article .bubble-link--retailai {
     color: white;
-    background-color: #ff00ff;
+    background: linear-gradient(135deg, #159c9a 0%, #1f6fb8 100%);
+    box-shadow: 0px 14px 22px rgba(12, 91, 119, 0.3), inset 0px 2px 0px rgba(255, 255, 255, 0.32);
+}
+
+.wrapper .container .text article .bubble-link:hover {
+    box-shadow: 0px 26px 38px rgba(54, 24, 79, 0.55), inset 0px 2px 0px rgba(255, 255, 255, 0.55);
+    transform: translateY(-6px) scale(1.04);
+    color: white;
+    background: #ff00ff;
+    border-color: rgba(255, 255, 255, 0.65);
     animation: sdb 3s infinite;
     -webkit-animation: sdb 3s infinite;
+}
+
+.wrapper .container .text article .bubble-link:active {
+    transform: translateY(-2px) scale(1.01);
+}
+
+@media screen and (max-width: 420px) {
+    .wrapper .container .text article .actions {
+        gap: 12px;
+    }
+
+    .wrapper .container .text article .link-bubble {
+        width: min(300px, 82vw);
+    }
+
+    .wrapper .container .text article .bubble-link {
+        width: 100%;
+        padding: 0 18px;
+    }
 }
 
 .wrapper .container .p404 {
